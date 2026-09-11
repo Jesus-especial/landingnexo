@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Real Nexo | Comunidad G5</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+    :root {
+      --bg-dark: #09050e;
+      --bg-gradient: linear-gradient(180deg, #0b0614 0%, #120921 50%, #07030b 100%);
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.14);
+      --purple-accent: #8b5cf6;
+      --purple-glow: rgba(139, 92, 246, 0.45);
+      --text-white: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-white);
+      background: var(--bg-dark);
+      background-image: var(--bg-gradient);
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; display: block; }
+    img, svg { display: block; }
+
+    /* Luces radiales de fondo */
+    .glow-top {
+      position: fixed;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 560px;
+      height: 460px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.3), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glow-bottom {
+      position: fixed;
+      bottom: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 540px;
+      height: 440px;
+      background: radial-gradient(circle, rgba(109, 40, 217, 0.22), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .mesh-bg {
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 65%);
+      -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 65%);
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 500px;
+      padding: 34px 18px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ============ 1) CABECERA Y FOTO MAXIMIZADA ============ */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 26px;
+      width: 100%;
+    }
+
+    .monogram {
+      width: clamp(102px, 28vw, 120px);
+      height: clamp(102px, 28vw, 120px);
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(168, 85, 247, 0.55);
+      box-shadow: 0 0 30px rgba(147, 51, 234, 0.45);
+      margin-bottom: 16px;
+      background: #120921;
+    }
+
+    .monogram img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* 3) NOMBRE MAXIMIZADO */
+    .hero h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: clamp(2.1rem, 9vw, 2.85rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      width: 100%;
+    }
+
+    /* 2) ICONO DE VERIFICADO TIPO TWITTER / TELEGRAM */
+    .verified-badge {
+      width: 1.15em;
+      height: 1.15em;
+      flex-shrink: 0;
+      filter: drop-shadow(0 2px 10px rgba(29, 155, 240, 0.55));
+    }
+
+    .hero .subtitle {
+      font-size: 0.88rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #cbd5e1;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    /* ============ BOTONES SUPERIORES ============ */
+    .links-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card-btn {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 22px;
+      min-height: 86px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.025) 100%);
+      border: 1.5px solid var(--card-border);
+      border-radius: 24px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+      transition: all 0.25s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    .card-btn:hover {
+      border-color: rgba(168, 85, 247, 0.65);
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 14px 34px rgba(139, 92, 246, 0.28);
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, rgba(124, 58, 237, 0.45), rgba(76, 29, 149, 0.3));
+      border: 1px solid rgba(168, 85, 247, 0.45);
+      flex-shrink: 0;
+      color: #d8b4fe;
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.25);
+    }
+
+    .card-icon svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .card-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-title {
+      font-size: 1.16rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    .card-sub {
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      margin-top: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-pulse {
+      position: relative;
+      border-color: rgba(168, 85, 247, 0.6);
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+      animation: prime-pulse 2.2s infinite ease-in-out;
+    }
+
+    .card-pulse .card-icon {
+      background: linear-gradient(145deg, #8b5cf6, #5b21b6);
+      color: #ffffff;
+      box-shadow: 0 0 18px rgba(139, 92, 246, 0.6);
+      animation: rotate-wiggle 2.8s infinite ease-in-out;
+    }
+
+    @keyframes prime-pulse {
+      0%, 100% {
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+        border-color: rgba(168, 85, 247, 0.45);
+      }
+      50% {
+        box-shadow: 0 12px 36px rgba(139, 92, 246, 0.45);
+        border-color: rgba(216, 180, 254, 0.9);
+      }
+    }
+
+    @keyframes rotate-wiggle {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      20% { transform: scale(1.08) rotate(-8deg); }
+      40% { transform: scale(1.08) rotate(8deg); }
+      60% { transform: scale(1) rotate(0deg); }
+    }
+
+    /* ============ 4) SECCIÓN INFERIOR MAXIMIZADA Y ORDENADA ============ */
+    .stats-section {
+      width: 100%;
+      margin-top: 48px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stats-header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .wave-line {
+      width: 36px;
+      height: 18px;
+      color: rgba(168, 85, 247, 0.6);
+      flex-shrink: 0;
+    }
+
+    .pill-live {
+      background: #fdfaf6;
+      color: #0b0614;
+      padding: 7px 18px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      box-shadow: 0 2px 16px rgba(255, 255, 255, 0.22);
+    }
+
+    .stats-label {
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+
+    .stats-number-wrap {
+      margin-bottom: 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stats-number {
+      font-size: clamp(3.8rem, 16vw, 5rem);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(180deg, #93c5fd 0%, #818cf8 40%, #6366f1 70%, #4338ca 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 6px 28px rgba(99, 102, 241, 0.55));
+      letter-spacing: -0.03em;
+    }
+
+    .stats-number-sub {
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: #c084fc;
+      background: rgba(192, 132, 252, 0.1);
+      padding: 4px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(192, 132, 252, 0.25);
+    }
+
+    .stats-title {
+      font-size: clamp(1.65rem, 7vw, 2.2rem);
+      font-weight: 900;
+      line-height: 1.2;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      max-width: 420px;
+      margin-bottom: 16px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .stats-desc {
+      font-size: clamp(0.92rem, 3.8vw, 1.05rem);
+      line-height: 1.6;
+      color: #a1a1aa;
+      max-width: 380px;
+      margin-bottom: 30px;
+      padding: 0 10px;
+    }
+
+    /* BOTÓN INFERIOR */
+    .cta-channel-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 16px;
+      padding: 16px 22px;
+      background: linear-gradient(90deg, rgba(76, 29, 149, 0.5) 0%, rgba(30, 16, 60, 0.8) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      border-radius: 22px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 12px 30px rgba(76, 29, 149, 0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .cta-channel-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(192, 132, 252, 0.7);
+      box-shadow: 0 16px 36px rgba(139, 92, 246, 0.4);
+    }
+
+    .cta-icon-wrapper {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #7c3aed, #4c1d95);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      flex-shrink: 0;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+    }
+
+    .cta-icon-wrapper svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .cta-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .cta-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #ffffff;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    .cta-sub {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      margin-top: 2px;
+    }
+
+    /* RESPONSIVE PARA DISPOSITIVOS ESTRECHOS (< 380px) */
+    @media (max-width: 380px) {
+      .card-btn { padding: 16px 16px; gap: 12px; }
+      .card-icon { width: 46px; height: 46px; }
+      .card-icon svg { width: 22px; height: 22px; }
+      .card-title { font-size: 1.05rem; }
+      .card-sub { font-size: 0.8rem; }
+      .stats-title { font-size: 1.45rem; }
+    }
+
+    /* Ocultar barra superior de Google Translate */
+    #google_translate_element { display: none; }
+    .goog-te-banner-frame.skiptranslate { display: none !important; }
+    body { top: 0px !important; }
+    .goog-tooltip { display: none !important; }
+    .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
+  </style>
+</head>
+<body>
+
+  <div class="glow-top"></div>
+  <div class="glow-bottom"></div>
+  <div class="mesh-bg"></div>
+
+  <div id="google_translate_element"></div>
+
+  <main class="page-wrap">
+
+    <!-- 1, 2 y 3) CABECERA: FOTO GRANDE, NOMBRE MAXIMIZADO Y VERIFICADO OFICIAL -->
+    <header class="hero">
+      <div class="monogram">
+        <img src="https://static.wixstatic.com/media/7d152f_3bc923794deb4698a531d279cc0fa41c~mv2.jpeg" alt="REAL NEXO">
+      </div>
+      <h1>
+        <span>REAL NEXO</span>
+        <!-- Insignia verificada oficial estrellada (Twitter/Telegram) agrandada -->
+        <svg class="verified-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Cuenta Verificada">
+          <path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.67-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.67-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z" fill="#1d9bf0"/>
+          <path d="M9.5 16.25l-3.5-3.5 1.41-1.41 2.09 2.08 6.09-6.09 1.41 1.42-7.5 7.5z" fill="#ffffff"/>
+        </svg>
+      </h1>
+      <p class="subtitle">Distri G5</p>
+    </header>
+
+    <!-- LISTA DE ENLACES SUPERIORES -->
+    <nav class="links-list">
+
+      <!-- MENSAJERÍA DIRECTA -->
+      <a class="card-btn card-pulse" href="https://t.me/realnexo" target="_blank" rel="noopener noreferrer">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M21 4L2.5 11.5c-.9.36-.9 1.6.02 1.94l4.6 1.66 1.78 5.7c.28.9 1.44 1.12 2.03.38l2.53-3.16 4.7 3.46c.75.55 1.83.14 2.02-.78L22.6 5.1c.2-.94-.7-1.7-1.6-1.1z"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <div class="card-title">Realiza tu pedido aquí</div>
+          <div class="card-sub">Contacto autorizado 24/7</div>
+        </div>
+      </a>
+
+      <!-- CANAL OFICIAL -->
+      <a class="card-btn" href="https://t.me/+XnEQiMaTV6xhMjYx" target="_blank" rel="noopener noreferrer">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M21 4L2.5 11.5c-.9.36-.9 1.6.02 1.94l4.6 1.66 1.78 5.7c.28.9 1.44 1.12 2.03.38l2.53-3.16 4.7 3.46c.75.55 1.83.14 2.02-.78L22.6 5.1c.2-.94-.7-1.7-1.6-1.1z"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <div class="card-title">Entra a mi comunidad</div>
+          <div class="card-sub">Novedades y disponibilidad</div>
+        </div>
+      </a>
+
+      <!-- TIKTOK -->
+      <a class="card-btn" href="https://www.tiktok.com/@real_nexo" target="_blank" rel="noopener noreferrer">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .58.04.86.12V9.42a6.37 6.37 0 0 0-.86-.06A6.34 6.34 0 0 0 3.1 15.7a6.34 6.34 0 0 0 10.82 4.49 6.27 6.27 0 0 0 1.86-4.49V8.58a8.28 8.28 0 0 0 4.81 1.54V6.69h-1z"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <div class="card-title">TikTok Oficial</div>
+          <div class="card-sub">@real_nexo • Videos y contenido</div>
+        </div>
+      </a>
+
+    </nav>
+
+    <!-- 4) SECCIÓN DE ESTADÍSTICAS MAXIMIZADA Y BIEN ESTRUCTURADA -->
+    <section class="stats-section">
+
+      <!-- Badge OBTÉN MÁS INFORMACIÓN -->
+      <div class="stats-header-badge">
+        <svg class="wave-line" viewBox="0 0 50 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+          <path d="M2 10 L 10 10 L 14 3 L 20 17 L 26 5 L 32 14 L 36 10 L 48 10"/>
+        </svg>
+
+        <span class="pill-live">@RealNexo Since 2025</span>
+
+        <svg class="wave-line" viewBox="0 0 50 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+          <path d="M2 10 L 12 10 L 16 6 L 22 15 L 28 3 L 34 17 L 38 10 L 48 10"/>
+        </svg>
+      </div>
+
+      <div class="stats-label">ACCEDE A MI CANAL</div>
+
+      <!-- +500 MIEMBROS ACTIVOS -->
+      <div class="stats-number-wrap">
+        <div class="stats-number">+500</div>
+        <div class="stats-number-sub">MIEMBROS ACTIVOS</div>
+      </div>
+
+      <!-- TITULAR ENVÍOS RÁPIDOS Y SEGUROS A TODO EL MUNDO -->
+      <h2 class="stats-title">
+        ENVÍOS RÁPIDOS<br>
+        Y SEGUROS<br>
+        A TODO EL MUNDO
+      </h2>
+
+      <!-- DESCRIPCIÓN -->
+      <p class="stats-desc">
+        Únete a mi canal para estar al tanto de todas las novedades y promociones.
+      </p>
+
+      <!-- BOTÓN VER EL CANAL AHORA -->
+      <a class="cta-channel-btn" href="https://t.me/+XnEQiMaTV6xhMjYx" target="_blank" rel="noopener noreferrer">
+        <div class="cta-icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M21 4L2.5 11.5c-.9.36-.9 1.6.02 1.94l4.6 1.66 1.78 5.7c.28.9 1.44 1.12 2.03.38l2.53-3.16 4.7 3.46c.75.55 1.83.14 2.02-.78L22.6 5.1c.2-.94-.7-1.7-1.6-1.1z"/>
+          </svg>
+        </div>
+        <div class="cta-text">
+          <span class="cta-title">VER EL CANAL AHORA</span>
+          <span class="cta-sub">Acceso Inmediato</span>
+        </div>
+      </a>
+
+    </section>
+
+  </main>
+
+  <!-- TRADUCCIÓN AUTOMÁTICA -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'es',
+        autoDisplay: false
+      }, 'google_translate_element');
+
+      try {
+        const userLang = (navigator.languages && navigator.languages[0]) || navigator.language || 'es';
+        const langCode = userLang.slice(0, 2).toLowerCase();
+
+        if (langCode !== 'es') {
+          const checkSelect = setInterval(() => {
+            const selectEl = document.querySelector('.goog-te-combo');
+            if (selectEl) {
+              selectEl.value = langCode;
+              selectEl.dispatchEvent(new Event('change'));
+              clearInterval(checkSelect);
+            }
+          }, 150);
+
+          setTimeout(() => clearInterval(checkSelect), 4000);
+        }
+      } catch (e) {
+        console.error("Error al detectar idioma:", e);
+      }
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
