@@ -187,8 +187,7 @@
     }
 
     /* RESPUESTA TÁCTIL :active */
-    .card-btn:active,
-    .float-share-btn:active {
+    .card-btn:active {
       transform: scale(0.97) !important;
       transition: 0.1s !important;
     }
@@ -319,71 +318,6 @@
       padding: 0 16px;
     }
 
-    /* BOTÓN FLOTANTE DISCRETO */
-    .float-share-btn {
-      position: fixed;
-      bottom: 22px;
-      right: 20px;
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: rgba(18, 9, 33, 0.75);
-      border: 1px solid rgba(168, 85, 247, 0.35);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: #d8b4fe;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-      z-index: 99;
-      transition: all 0.2s ease;
-    }
-
-    .float-share-btn:hover {
-      border-color: rgba(192, 132, 252, 0.8);
-      color: #ffffff;
-      box-shadow: 0 0 16px rgba(139, 92, 246, 0.5);
-    }
-
-    .float-share-btn svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    /* TOAST AVISO FLOTANTE */
-    .copy-toast {
-      position: fixed;
-      bottom: 78px;
-      right: 20px;
-      background: rgba(15, 7, 26, 0.92);
-      border: 1px solid rgba(168, 85, 247, 0.5);
-      color: #f8fafc;
-      font-size: 0.82rem;
-      font-weight: 700;
-      padding: 8px 16px;
-      border-radius: 999px;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(8px);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      pointer-events: none;
-    }
-
-    .copy-toast.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
     /* RESPONSIVE (< 380px) */
     @media (max-width: 380px) {
       .card-btn { padding: 16px 16px; gap: 12px; }
@@ -476,53 +410,12 @@
 
     </nav>
 
-    <!-- FRASE INFERIOR RESTAURADA -->
+    <!-- FRASE INFERIOR -->
     <p class="footer-desc">
       Únete a mi canal para estar al tanto de todas las actualizaciones y anuncios.
     </p>
 
   </main>
-
-  <!-- BOTÓN FLOTANTE COPIAR ENLACE Y TOAST -->
-  <button class="float-share-btn" id="shareBtn" aria-label="Copiar enlace" title="Copiar enlace">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-    </svg>
-  </button>
-
-  <div class="copy-toast" id="copyToast">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="20 6 9 17 4 12"></polyline>
-    </svg>
-    Enlace copiado
-  </div>
-
-  <script>
-    const shareBtn = document.getElementById('shareBtn');
-    const copyToast = document.getElementById('copyToast');
-
-    shareBtn.addEventListener('click', () => {
-      const shareUrl = 'https://t.me/RealNexo';
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        copyToast.classList.add('show');
-        setTimeout(() => {
-          copyToast.classList.remove('show');
-        }, 2200);
-      }).catch(() => {
-        const input = document.createElement('input');
-        input.value = shareUrl;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
-        copyToast.classList.add('show');
-        setTimeout(() => {
-          copyToast.classList.remove('show');
-        }, 2200);
-      });
-    });
-  </script>
 
   <!-- TRADUCCIÓN AUTOMÁTICA -->
   <script type="text/javascript">
