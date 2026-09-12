@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Real Nexo | Comunidad</title>
+
+  <!-- FAVICON -->
+  <link rel="icon" type="image/jpeg" href="https://static.wixstatic.com/media/7d152f_3bc923794deb4698a531d279cc0fa41c~mv2.jpeg">
+  <link rel="apple-touch-icon" href="https://static.wixstatic.com/media/7d152f_3bc923794deb4698a531d279cc0fa41c~mv2.jpeg">
+
+  <!-- META-ETIQUETAS OPEN GRAPH -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://realnexo.lat">
+  <meta property="og:title" content="Real Nexo | Enlaces Oficiales">
+  <meta property="og:description" content="Accede a nuestros canales oficiales, atención personalizada y novedades exclusivas.">
+  <meta property="og:image" content="https://static.wixstatic.com/media/7d152f_3bc923794deb4698a531d279cc0fa41c~mv2.jpeg">
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
 
@@ -95,7 +107,7 @@
       align-items: center;
     }
 
-    /* ============ 1) CABECERA Y FOTO MAXIMIZADA ============ */
+    /* CABECERA Y FOTO */
     .hero {
       display: flex;
       flex-direction: column;
@@ -122,7 +134,6 @@
       object-fit: cover;
     }
 
-    /* 3) NOMBRE MAXIMIZADO */
     .hero h1 {
       display: flex;
       align-items: center;
@@ -136,7 +147,6 @@
       width: 100%;
     }
 
-    /* 2) ICONO DE VERIFICADO TIPO TWITTER / TELEGRAM */
     .verified-badge {
       width: 1.15em;
       height: 1.15em;
@@ -153,7 +163,7 @@
       margin-top: 6px;
     }
 
-    /* ============ BOTONES SUPERIORES ============ */
+    /* BOTONES */
     .links-list {
       width: 100%;
       display: flex;
@@ -174,6 +184,13 @@
       -webkit-backdrop-filter: blur(20px);
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
       transition: all 0.25s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    /* RESPUESTA TÁCTIL :active */
+    .card-btn:active,
+    .float-share-btn:active {
+      transform: scale(0.97) !important;
+      transition: 0.1s !important;
     }
 
     .card-btn:hover {
@@ -212,6 +229,42 @@
       color: #ffffff;
       line-height: 1.25;
       letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* PUNTO VERDE ANIMADO */
+    .online-indicator {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 9px;
+      height: 9px;
+      flex-shrink: 0;
+    }
+
+    .online-indicator .dot-core {
+      width: 9px;
+      height: 9px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+    }
+
+    .online-indicator .dot-pulse {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #22c55e;
+      border-radius: 50%;
+      animation: online-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes online-ping {
+      0% { transform: scale(1); opacity: 0.8; }
+      75%, 100% { transform: scale(2.6); opacity: 0; }
     }
 
     .card-sub {
@@ -255,178 +308,92 @@
       60% { transform: scale(1) rotate(0deg); }
     }
 
-    /* ============ 4) SECCIÓN INFERIOR MAXIMIZADA Y ORDENADA ============ */
-    .stats-section {
-      width: 100%;
-      margin-top: 48px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .stats-header-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .wave-line {
-      width: 36px;
-      height: 18px;
-      color: rgba(168, 85, 247, 0.6);
-      flex-shrink: 0;
-    }
-
-    .pill-live {
-      background: #fdfaf6;
-      color: #0b0614;
-      padding: 7px 18px;
-      border-radius: 999px;
-      font-size: 0.76rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      box-shadow: 0 2px 16px rgba(255, 255, 255, 0.22);
-    }
-
-    .stats-label {
-      font-size: 0.92rem;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #cbd5e1;
-      margin-bottom: 6px;
-    }
-
-    .stats-number-wrap {
-      margin-bottom: 22px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .stats-number {
-      font-size: clamp(3.8rem, 16vw, 5rem);
-      font-weight: 900;
-      line-height: 1;
-      background: linear-gradient(180deg, #93c5fd 0%, #818cf8 40%, #6366f1 70%, #4338ca 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 6px 28px rgba(99, 102, 241, 0.55));
-      letter-spacing: -0.03em;
-    }
-
-    .stats-number-sub {
-      font-size: 0.95rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      color: #c084fc;
-      background: rgba(192, 132, 252, 0.1);
-      padding: 4px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(192, 132, 252, 0.25);
-    }
-
-    .stats-title {
-      font-size: clamp(1.65rem, 7vw, 2.2rem);
-      font-weight: 900;
-      line-height: 1.2;
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-      color: #ffffff;
-      max-width: 420px;
-      margin-bottom: 16px;
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    .stats-desc {
-      font-size: clamp(0.92rem, 3.8vw, 1.05rem);
+    /* FRASE INFERIOR */
+    .footer-desc {
+      font-size: clamp(0.92rem, 3.8vw, 1.02rem);
       line-height: 1.6;
       color: #a1a1aa;
       max-width: 380px;
-      margin-bottom: 30px;
-      padding: 0 10px;
+      text-align: center;
+      margin-top: 36px;
+      padding: 0 16px;
     }
 
-    /* BOTÓN INFERIOR */
-    .cta-channel-btn {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 16px;
-      padding: 16px 22px;
-      background: linear-gradient(90deg, rgba(76, 29, 149, 0.5) 0%, rgba(30, 16, 60, 0.8) 100%);
-      border: 1px solid rgba(168, 85, 247, 0.4);
-      border-radius: 22px;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 12px 30px rgba(76, 29, 149, 0.35);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .cta-channel-btn:hover {
-      transform: translateY(-2px);
-      border-color: rgba(192, 132, 252, 0.7);
-      box-shadow: 0 16px 36px rgba(139, 92, 246, 0.4);
-    }
-
-    .cta-icon-wrapper {
-      width: 48px;
-      height: 48px;
-      border-radius: 15px;
+    /* BOTÓN FLOTANTE DISCRETO */
+    .float-share-btn {
+      position: fixed;
+      bottom: 22px;
+      right: 20px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(18, 9, 33, 0.75);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #d8b4fe;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #7c3aed, #4c1d95);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      flex-shrink: 0;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+      z-index: 99;
+      transition: all 0.2s ease;
+    }
+
+    .float-share-btn:hover {
+      border-color: rgba(192, 132, 252, 0.8);
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+      box-shadow: 0 0 16px rgba(139, 92, 246, 0.5);
     }
 
-    .cta-icon-wrapper svg {
-      width: 24px;
-      height: 24px;
+    .float-share-btn svg {
+      width: 20px;
+      height: 20px;
     }
 
-    .cta-text {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      text-align: left;
-    }
-
-    .cta-title {
-      font-size: 1.05rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: #ffffff;
-      letter-spacing: 0.02em;
-      line-height: 1.2;
-    }
-
-    .cta-sub {
+    /* TOAST AVISO FLOTANTE */
+    .copy-toast {
+      position: fixed;
+      bottom: 78px;
+      right: 20px;
+      background: rgba(15, 7, 26, 0.92);
+      border: 1px solid rgba(168, 85, 247, 0.5);
+      color: #f8fafc;
       font-size: 0.82rem;
-      color: #cbd5e1;
-      margin-top: 2px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 999px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
     }
 
-    /* RESPONSIVE PARA DISPOSITIVOS ESTRECHOS (< 380px) */
+    .copy-toast.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE (< 380px) */
     @media (max-width: 380px) {
       .card-btn { padding: 16px 16px; gap: 12px; }
       .card-icon { width: 46px; height: 46px; }
       .card-icon svg { width: 22px; height: 22px; }
       .card-title { font-size: 1.05rem; }
       .card-sub { font-size: 0.8rem; }
-      .stats-title { font-size: 1.45rem; }
     }
 
-    /* Ocultar barra superior de Google Translate */
+    /* Ocultar barra de Google Translate */
     #google_translate_element { display: none; }
     .goog-te-banner-frame.skiptranslate { display: none !important; }
     body { top: 0px !important; }
@@ -444,23 +411,22 @@
 
   <main class="page-wrap">
 
-    <!-- 1, 2 y 3) CABECERA: FOTO GRANDE, NOMBRE MAXIMIZADO Y VERIFICADO OFICIAL -->
+    <!-- CABECERA -->
     <header class="hero">
       <div class="monogram">
         <img src="https://static.wixstatic.com/media/7d152f_3bc923794deb4698a531d279cc0fa41c~mv2.jpeg" alt="REAL NEXO">
       </div>
       <h1>
         <span>REAL NEXO</span>
-        <!-- Insignia verificada oficial estrellada (Twitter/Telegram) agrandada -->
         <svg class="verified-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Cuenta Verificada">
           <path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.67-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.67-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z" fill="#1d9bf0"/>
           <path d="M9.5 16.25l-3.5-3.5 1.41-1.41 2.09 2.08 6.09-6.09 1.41 1.42-7.5 7.5z" fill="#ffffff"/>
         </svg>
       </h1>
-      <p class="subtitle">Distri G5</p>
+      <p class="subtitle">Mis redes sociales</p>
     </header>
 
-    <!-- LISTA DE ENLACES SUPERIORES -->
+    <!-- LISTA DE ENLACES -->
     <nav class="links-list">
 
       <!-- MENSAJERÍA DIRECTA -->
@@ -471,8 +437,14 @@
           </svg>
         </div>
         <div class="card-content">
-          <div class="card-title">Contacto directo</div>
-          <div class="card-sub">Soporte 24/7</div>
+          <div class="card-title">
+            <span class="online-indicator" title="En línea">
+              <span class="dot-pulse"></span>
+              <span class="dot-core"></span>
+            </span>
+            <span>Contacto directo</span>
+          </div>
+          <div class="card-sub">Enviar un mensaje</div>
         </div>
       </a>
 
@@ -504,58 +476,53 @@
 
     </nav>
 
-    <!-- 4) SECCIÓN DE ESTADÍSTICAS MAXIMIZADA Y BIEN ESTRUCTURADA -->
-    <section class="stats-section">
-
-      <!-- Badge OBTÉN MÁS INFORMACIÓN -->
-      <div class="stats-header-badge">
-        <svg class="wave-line" viewBox="0 0 50 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
-          <path d="M2 10 L 10 10 L 14 3 L 20 17 L 26 5 L 32 14 L 36 10 L 48 10"/>
-        </svg>
-
-        <span class="pill-live">@RealNexo Since 2025</span>
-
-        <svg class="wave-line" viewBox="0 0 50 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
-          <path d="M2 10 L 12 10 L 16 6 L 22 15 L 28 3 L 34 17 L 38 10 L 48 10"/>
-        </svg>
-      </div>
-
-      <div class="stats-label">ACCEDE A MI CANAL</div>
-
-      <!-- +500 MIEMBROS ACTIVOS -->
-      <div class="stats-number-wrap">
-        <div class="stats-number">+500</div>
-        <div class="stats-number-sub">MIEMBROS ACTIVOS</div>
-      </div>
-
-      <!-- TITULAR ENVÍOS RÁPIDOS Y SEGUROS A TODO EL MUNDO -->
-      <h2 class="stats-title">
-        COMUNIDAD<br>
-        EXCLUSIVA<br>
-        Y SOPORTE VIP
-      </h2>
-
-      <!-- DESCRIPCIÓN -->
-      <p class="stats-desc">
-        Únete a mi canal para estar al tanto de todas las actualizaciones y anuncios.
-      </p>
-
-      <!-- BOTÓN VER EL CANAL AHORA -->
-      <a class="cta-channel-btn" href="https://t.me/+XnEQiMaTV6xhMjYx" target="_blank" rel="noopener noreferrer">
-        <div class="cta-icon-wrapper">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path d="M21 4L2.5 11.5c-.9.36-.9 1.6.02 1.94l4.6 1.66 1.78 5.7c.28.9 1.44 1.12 2.03.38l2.53-3.16 4.7 3.46c.75.55 1.83.14 2.02-.78L22.6 5.1c.2-.94-.7-1.7-1.6-1.1z"/>
-          </svg>
-        </div>
-        <div class="cta-text">
-          <span class="cta-title">VER EL CANAL AHORA</span>
-          <span class="cta-sub">Acceso Inmediato</span>
-        </div>
-      </a>
-
-    </section>
+    <!-- FRASE INFERIOR RESTAURADA -->
+    <p class="footer-desc">
+      Únete a mi canal para estar al tanto de todas las actualizaciones y anuncios.
+    </p>
 
   </main>
+
+  <!-- BOTÓN FLOTANTE COPIAR ENLACE Y TOAST -->
+  <button class="float-share-btn" id="shareBtn" aria-label="Copiar enlace" title="Copiar enlace">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    </svg>
+  </button>
+
+  <div class="copy-toast" id="copyToast">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    Enlace copiado
+  </div>
+
+  <script>
+    const shareBtn = document.getElementById('shareBtn');
+    const copyToast = document.getElementById('copyToast');
+
+    shareBtn.addEventListener('click', () => {
+      const shareUrl = 'https://t.me/RealNexo';
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        copyToast.classList.add('show');
+        setTimeout(() => {
+          copyToast.classList.remove('show');
+        }, 2200);
+      }).catch(() => {
+        const input = document.createElement('input');
+        input.value = shareUrl;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        copyToast.classList.add('show');
+        setTimeout(() => {
+          copyToast.classList.remove('show');
+        }, 2200);
+      });
+    });
+  </script>
 
   <!-- TRADUCCIÓN AUTOMÁTICA -->
   <script type="text/javascript">
